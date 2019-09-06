@@ -8,7 +8,7 @@ import {
 
 const trimPath = (path = '') => path.replace(/^\/|\/$/g, '');
 
-export class JoinUrl {
+export class UrlJoin {
   private params: object | null = null;
 
   constructor(private readonly baseUrl, private readonly paths: string[]) {}
@@ -36,7 +36,7 @@ export class JoinUrl {
     return resultUrl;
   }
 
-  public queryParams(params: object): JoinUrl {
+  public queryParams(params: object): UrlJoin {
     this.params = params;
     return this;
   }

@@ -1,2 +1,2 @@
-export * from './joinUrl';
-export * from './joinUrlFunc';
+export * from './urlJoin';
+export * from './urlJoinFunc';
