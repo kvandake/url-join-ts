@@ -16,6 +16,13 @@ describe('urlJoin', () => {
     expect(urlJoin(baseUrl, '1/2')).toBe(`${baseUrl}/1/2`);
   });
 
+  it('urlJoin for localhost', () => {
+    expect(urlJoin('http://localhost', '1')).toBe(`http://localhost/1`);
+    expect(urlJoin('localhost', '1')).toBe(`localhost/1`);
+    expect(urlJoin('http://0.0.0.0', '1')).toBe(`http://0.0.0.0/1`);
+    expect(urlJoin('http://127.0.0.1', '1')).toBe(`http://127.0.0.1/1`);
+  });
+
   it('urlJoinP with params', () => {
     const baseHttpUrl = 'http://test.com';
     expect(urlJoinP(baseHttpUrl, ['1'], { a: 1, b: 2 })).toBe(`${baseHttpUrl}/1?a=1&b=2`);

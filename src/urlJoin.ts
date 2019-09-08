@@ -1,10 +1,4 @@
-import {
-  DELIMITER_PATH,
-  DELIMITER_SEARCH_PARAMS,
-  DELIMITER_SEARCH_VALUES,
-  DELIMITER_URL_PARTS,
-  URL_REGEX,
-} from './constants';
+import { DELIMITER_PATH, DELIMITER_SEARCH_PARAMS, DELIMITER_SEARCH_VALUES, DELIMITER_URL_PARTS } from './constants';
 
 const trimPath = (path = '') => path.replace(/^\/|\/$/g, '');
 
@@ -14,9 +8,8 @@ export class UrlJoin {
   constructor(private readonly baseUrl, private readonly paths: string[]) {}
 
   public toString(): string {
-    // check is url
-    if (!URL_REGEX.test(this.baseUrl)) {
-      throw new TypeError('Url must be a valid url.');
+    if (!this.baseUrl) {
+      throw new TypeError('Url must be not empty.');
     }
 
     let resultUrl = [this.baseUrl, ...this.paths]
