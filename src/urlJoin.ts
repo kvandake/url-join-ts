@@ -1,20 +1,19 @@
 import { DELIMITER_PATH, DELIMITER_SEARCH_PARAMS, DELIMITER_SEARCH_VALUES, DELIMITER_URL_PARTS } from './constants';
 
-const trimPath = (path = '') => path.replace(/^\/|\/$/g, '');
+const trimRegex = /^\/|\/$/g;
+const trimPath = (path = '') => path.replace(trimRegex, '');
+const trimPathNotFirst = (path = '', index: number) => (index === 0 ? path : path.replace(trimRegex, ''));
 
 export class UrlJoin {
   private params: object | null = null;
 
-  constructor(private readonly baseUrl, private readonly paths: string[]) {}
+  constructor(private readonly baseUrl: string | undefined, private readonly paths: string[]) {}
 
   public toString(): string {
-    if (!this.baseUrl) {
-      throw new TypeError('Url must be not empty.');
-    }
-
+    const hasBaseUrl = this.baseUrl !== null && this.baseUrl !== undefined;
     let resultUrl = [this.baseUrl, ...this.paths]
       .filter(Boolean)
-      .map(trimPath)
+      .map(hasBaseUrl ? trimPath : trimPathNotFirst)
       .join(DELIMITER_PATH);
 
     if (this.hasParams()) {

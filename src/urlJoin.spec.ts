@@ -16,8 +16,19 @@ describe('urlJoin', () => {
     expect(urlJoin(baseUrl, '1/2')).toBe(`${baseUrl}/1/2`);
   });
 
+  it('urlJoin for path', () => {
+    expect(urlJoin(undefined, '')).toBe(``);
+    expect(urlJoin(undefined, '1')).toBe(`1`);
+    expect(urlJoin(undefined, '/1')).toBe(`/1`);
+    expect(urlJoin(undefined, '1', '/2/')).toBe(`1/2`);
+    expect(urlJoin(undefined, '/1', '/2/')).toBe(`/1/2`);
+    expect(urlJoin(undefined, '1', '/2', '3')).toBe(`1/2/3`);
+    expect(urlJoin(undefined, '1', '/2', '/3/4/5/')).toBe(`1/2/3/4/5`);
+  });
+
   it('urlJoin for localhost', () => {
     expect(urlJoin('http://localhost', '1')).toBe(`http://localhost/1`);
+    expect(urlJoin('http://localhost', '/1')).toBe(`http://localhost/1`);
     expect(urlJoin('localhost', '1')).toBe(`localhost/1`);
     expect(urlJoin('http://0.0.0.0', '1')).toBe(`http://0.0.0.0/1`);
     expect(urlJoin('http://127.0.0.1', '1')).toBe(`http://127.0.0.1/1`);
